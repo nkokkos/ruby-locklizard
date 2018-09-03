@@ -3,15 +3,16 @@ require 'time'
 require "locklizard/version"
 
   #constants for end point interface links
-  BASE_URL = "https://www.locklizard-evals.com/enterprise4/Interop.php"
+  BASE_URL = "https://drm.eap.gr/documents/Interop.php"
+  WEBVIEWER_URL = "https://drm.eap.gr/webviewer "
   SUCCESS  = "OK"
   FAILED   = "Failed"
   
   class Api    
         
-     def initialize(accesskey=nil, secretkey=nil)
-       @admin    = accesskey || ENV['LOCKLIZARD_ADMIN']
-       @password = secretkey || ENV['LOCKLIZARD_PASSWORD']
+    def initialize(accesskey=nil, secretkey=nil)
+      @admin    = accesskey || ENV['LOCKLIZARD_ADMIN']
+      @password = secretkey || ENV['LOCKLIZARD_PASSWORD']
      end
     
 	 #helper methods:
@@ -24,7 +25,7 @@ require "locklizard/version"
 	 end
 	 
      def admin_url
-       "?un=" +  @admin + "&pw=" +  @password
+       "?un=" +  URI.escape(@admin) + "&pw=" +  URI.escape(@password)
      end
 	 
 	 #def clean_response(resp)
@@ -37,8 +38,8 @@ require "locklizard/version"
       suburl = "&action=set_customer_webviewer_access" + "&" + 
                  "custid="    + custid.to_s    + "&" + 
                  "webviewer=" + webviewer.to_s + "&" +
-                 "username="  + username.to_s  + "&" +
-                 "password="  + password.to_s  + "&" +
+                 "username="  + URI.escape(username).to_s  + "&" +
+                 "password="  + URI.escape(password).to_s  + "&" +
                  "noregemail=1"
 
       target_url = BASE_URL + admin_url + suburl 
@@ -53,12 +54,12 @@ require "locklizard/version"
 
     def add_customer(name, email)
       suburl = "&action=add_customer" + "&" + 
-                 "name="  + name      + "&" + 
-                 "email=" + email     + "&" +
-                 "start_date="        + Time.now.strftime("%m-%d-%Y") + "&" +
+                 "name="  + URI.escape(email)      + "&" + 
+                 "email=" + URI.escape(email)     + "&" +
+                 "start_date="        + Time.now.utc.strftime("%m-%d-%Y") + "&" +
                  "end_type=unlimited" + "&" +
                  "noregemail=1"       + "&" +
-                 "licenses=1"         + "&" + 
+                 "licenses=10"        + "&" + 
                  "webviewer=1"
       
        target_url = BASE_URL + admin_url + suburl 
@@ -70,6 +71,30 @@ require "locklizard/version"
       end
 
 	end#add_customer
+
+
+
+
+  #this is probably not used in the code but check it out 
+  def send_reg_email(email)
+    suburl = "&action=add_customer" + "&" +
+                 "name="  + URI.escape(email) + "&" +
+                 "email=" + URI.escape(email) + "&" +
+                 "start_date="        + Time.now.utc.strftime("%m-%d-%Y") + "&" +
+                 "end_type=unlimited" + "&" +
+                 "noregemail=0"       + "&" +
+                 "licenses=2"         + "&" +
+                 "webviewer=1"                  
+
+       target_url = BASE_URL + admin_url + suburl
+
+      begin
+        RestClient.get(target_url)
+      rescue RestClient::ExceptionWithResponse => err
+        err.response
+      end
+   
+   end
 	
 	def list_customer(custid=nil, email=nil)
       suburl = "&action=list_customer&nodocs=1" 
@@ -78,7 +103,7 @@ require "locklizard/version"
 	    elsif !custid.nil? && email.nil?
 	      suburl << "&custid=" + custid.to_s
         elsif custid.nil? && !email.nil? 
-	      suburl << "&email=" + email
+	      suburl << "&email=" + URI.escape(email)
 	    elsif !custid.nil? && !email.nil?
 	      suburl << "&custid=" + custid.to_s
 	    end
@@ -100,12 +125,11 @@ require "locklizard/version"
 	#end_date – the date from which you want to stop access to the publication (optional)
 	def grant_publication_access(custid, publication)
 	suburl = "&action=grant_publication_access" 
-        if custid.nil? && email.nil?
+        if custid.nil? && publication.nil?
 	      raise ArgumentError.new('Parameters are nil. Aborting...')
 	    elsif !custid.nil? && !publication.nil?
 	      suburl << "&custid="     + custid.to_s + "&" + 
-                    "publication=" + publication.to_s  + "&" + 
-                    "start_date="  + Time.now.strftime("%m-%d-%Y")
+                    "publication=" + publication.to_s
                                 
          end
 	   target_url = BASE_URL + admin_url + suburl 
@@ -115,17 +139,54 @@ require "locklizard/version"
          err.response
        end
 	end
+
+
+    def set_customer_license_count(custid, licenses)
+        suburl = "&action=set_customer_license_count"
+        if custid.nil? && licenses.nil?
+          raise ArgumentError.new('Parameters are nil. Aborting...')
+        elsif !custid.nil? && !licenses.nil?
+          suburl << "&custid="  + custid.to_s + "&" +
+                    "licenses=" + licenses.to_s
+         end
+       target_url = BASE_URL + admin_url + suburl
+       begin
+         RestClient.get(target_url)
+       rescue RestClient::ExceptionWithResponse => err
+         err.response
+       end
+   end
+
+    def update_customer_license_count(custid, licenses)
+        suburl = "&action=update_customer_license_count"
+        if custid.nil? && publication.nil?
+              raise ArgumentError.new('Parameters are nil. Aborting...')
+            elsif !custid.nil? && !licenses.nil?
+              suburl << "&custid="     + custid.to_s + "&" +
+                        "licenses="    + licenses.to_s
+
+         end
+           target_url = BASE_URL + admin_url + suburl
+       begin
+         RestClient.get(target_url)
+       rescue RestClient::ExceptionWithResponse => err
+         err.response
+       end
+   end
+   
+
+
 	
-	def add_publication(name, description=nil)
+	def add_publication(name, description)
       suburl = "&action=add_publication" 
         if name.nil? && description.nil?
 	      raise ArgumentError.new('Parameters are nil. Aborting...')
 	    elsif !name.nil? && description.nil?
-	      suburl << "&name=" + name
+	      suburl << "&name=" + URI.escape(name).to_s
         elsif name.nil? && !description.nil? 
 	      raise ArgumentError.new('Name is nil. Aborting...')
 	    elsif !name.nil? && !description.nil?
-	      suburl << "&name=" + name + "&description=" + description
+	      suburl << "&name=" + URI.escape(name).to_s + "&description=" + URI.escape(description).to_s
 	    end
 
 	   target_url = BASE_URL + admin_url + suburl 
@@ -147,11 +208,34 @@ require "locklizard/version"
         err.response
       end
 	end#list_publications
+       
+       def get_customer_license(custid=nil)
+         suburl = "&action=get_customer_license"
+         suburl << "&custid=" + custid.to_s 
+         target_url = BASE_URL + admin_url + suburl
+         begin
+           RestClient.get(target_url)
+         rescue RestClient::ExceptionWithResponse => err
+           err.response
+         end
+       end
+
+
+       def get_customer_webviewer_ssourl(custid=nil)
+        suburl = "&action=get_customer_webviewer_ssourl"
+        suburl << "&custid=" + custid.to_s
+        target_url = BASE_URL + admin_url + suburl
+        begin
+          RestClient.get(target_url)
+        rescue RestClient::ExceptionWithResponse => err
+          err.response
+        end
+      end 
 	
   end#class Api
   
   module  LockLizard
-    def self.Api (key=nil,secret=nil)
+    def self.Api(key=nil,secret=nil)
       return Api.new(key,secret)
     end
 end
