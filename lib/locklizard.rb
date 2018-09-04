@@ -1,7 +1,8 @@
 require 'rest_client'
 require 'time'
-require "locklizard/version"
-require "locklizard/methods"
+
+require_relative  'locklizard/methods'
+require_relative  'locklizard/version'
 
   #constants for end point interface links
   BASE_URL = "https://drm.eap.gr/documents/Interop.php"
