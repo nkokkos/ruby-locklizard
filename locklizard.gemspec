@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "locklizard"
   spec.version       = Locklizard::VERSION
   spec.authors       = ["Nick Kokkos"]
-  spec.email         = ["nkokkos@eap.gr"]
+  spec.email         = ["nkokkos@gmail.com"]
 
   spec.summary       = %q{a short summary, because Rubygems requires one.}
   spec.description   = %q{a longer description or delete this line.}
@@ -28,9 +28,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 12.0"
   
   #runtime dependencies
-  spec.add_runtime_dependency "rest-client", "~> 2.0.0"
-  
+  spec.add_runtime_dependency "rest-client", '~> 2.0', '>= 2.0.2'
+
 end
