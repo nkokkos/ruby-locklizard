@@ -1,6 +1,7 @@
 require 'rest_client'
 require 'time'
 require "locklizard/version"
+require "locklizard/methods"
 
   #constants for end point interface links
   BASE_URL = "https://drm.eap.gr/documents/Interop.php"
@@ -9,7 +10,7 @@ require "locklizard/version"
   FAILED   = "Failed"
   
   class Api    
-        
+    
     def initialize(accesskey=nil, secretkey=nil)
       @admin    = accesskey || ENV['LOCKLIZARD_ADMIN']
       @password = secretkey || ENV['LOCKLIZARD_PASSWORD']
@@ -20,21 +21,23 @@ require "locklizard/version"
        resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
      end
 	 
-	 def failed?(resp)
-	   resp.to_str.split("\n").first.gsub("\n",'') == FAILED
-	 end
+	   def failed?(resp)
+	     resp.to_str.split("\n").first.gsub("\n",'') == FAILED
+	   end
 	 
      def admin_url
        "?un=" +  URI.escape(@admin) + "&pw=" +  URI.escape(@password)
      end
 	 
-	 #def clean_response(resp)
-     #  if success?(resp)
-     #    line_string = StringIO.new 
-     #    line_string << resp.to_str.split
-     #end
-	 #webviewer should be 1 or 0
+	   #def clean_response(resp)
+       #  if success?(resp)
+       #    line_string = StringIO.new 
+       #    line_string << resp.to_str.split
+    #end
+
+	  #webviewer should be 1 or 0
     def set_customer_webviewer_access(custid, webviewer, username, password)
+    
       suburl = "&action=set_customer_webviewer_access" + "&" + 
                  "custid="    + custid.to_s    + "&" + 
                  "webviewer=" + webviewer.to_s + "&" +
@@ -54,8 +57,8 @@ require "locklizard/version"
 
     def add_customer(name, email)
       suburl = "&action=add_customer" + "&" + 
-                 "name="  + URI.escape(email)      + "&" + 
-                 "email=" + URI.escape(email)     + "&" +
+                 "name="  + URI.escape(email) + "&" + 
+                 "email=" + URI.escape(email) + "&" +
                  "start_date="        + Time.now.utc.strftime("%m-%d-%Y") + "&" +
                  "end_type=unlimited" + "&" +
                  "noregemail=1"       + "&" +
@@ -71,49 +74,26 @@ require "locklizard/version"
       end
 
 	end#add_customer
+	
+	def list_customer(custid=nil, email=nil)
+      suburl = "&action=list_customer&nodocs=1" 
+        if custid.nil? && email.nil?
+	        raise ArgumentError.new('Parameters are nil. Aborting...')
+	    elsif !custid.nil? && email.nil?
+	        suburl << "&custid=" + custid.to_s
+      elsif custid.nil? && !email.nil? 
+	        suburl << "&email=" + URI.escape(email)
+	    elsif !custid.nil? && !email.nil?
+	        suburl << "&custid=" + custid.to_s
+	    end
 
-
-
-
-  #this is probably not used in the code but check it out 
-  def send_reg_email(email)
-    suburl = "&action=add_customer" + "&" +
-                 "name="  + URI.escape(email) + "&" +
-                 "email=" + URI.escape(email) + "&" +
-                 "start_date="        + Time.now.utc.strftime("%m-%d-%Y") + "&" +
-                 "end_type=unlimited" + "&" +
-                 "noregemail=0"       + "&" +
-                 "licenses=2"         + "&" +
-                 "webviewer=1"                  
-
-       target_url = BASE_URL + admin_url + suburl
-
+	    target_url = BASE_URL + admin_url + suburl 
+      
       begin
         RestClient.get(target_url)
       rescue RestClient::ExceptionWithResponse => err
         err.response
       end
-   
-   end
-	
-	def list_customer(custid=nil, email=nil)
-      suburl = "&action=list_customer&nodocs=1" 
-        if custid.nil? && email.nil?
-	      raise ArgumentError.new('Parameters are nil. Aborting...')
-	    elsif !custid.nil? && email.nil?
-	      suburl << "&custid=" + custid.to_s
-        elsif custid.nil? && !email.nil? 
-	      suburl << "&email=" + URI.escape(email)
-	    elsif !custid.nil? && !email.nil?
-	      suburl << "&custid=" + custid.to_s
-	    end
-
-	   target_url = BASE_URL + admin_url + suburl 
-       begin
-         RestClient.get(target_url)
-       rescue RestClient::ExceptionWithResponse => err
-         err.response
-       end
 	   
 	end#list_customers
 
@@ -124,24 +104,24 @@ require "locklizard/version"
 	#start_date – the date from which you want to grant access to the publication (optional)
 	#end_date – the date from which you want to stop access to the publication (optional)
 	def grant_publication_access(custid, publication)
-	suburl = "&action=grant_publication_access" 
-        if custid.nil? && publication.nil?
+  
+    suburl = "&action=grant_publication_access" 
+      if custid.nil? && publication.nil?
 	      raise ArgumentError.new('Parameters are nil. Aborting...')
 	    elsif !custid.nil? && !publication.nil?
-	      suburl << "&custid="     + custid.to_s + "&" + 
-                    "publication=" + publication.to_s
-                                
-         end
-	   target_url = BASE_URL + admin_url + suburl 
-       begin
+	      suburl << "&custid="     + custid.to_s + "&" + "publication=" + publication.to_s
+      end
+     
+      target_url = BASE_URL + admin_url + suburl 
+      
+      begin
          RestClient.get(target_url)
        rescue RestClient::ExceptionWithResponse => err
          err.response
        end
 	end
 
-
-    def set_customer_license_count(custid, licenses)
+  def set_customer_license_count(custid, licenses)
         suburl = "&action=set_customer_license_count"
         if custid.nil? && licenses.nil?
           raise ArgumentError.new('Parameters are nil. Aborting...')
@@ -174,8 +154,6 @@ require "locklizard/version"
        end
    end
    
-
-
 	
 	def add_publication(name, description)
       suburl = "&action=add_publication" 
@@ -183,7 +161,7 @@ require "locklizard/version"
 	      raise ArgumentError.new('Parameters are nil. Aborting...')
 	    elsif !name.nil? && description.nil?
 	      suburl << "&name=" + URI.escape(name).to_s
-        elsif name.nil? && !description.nil? 
+      elsif name.nil? && !description.nil? 
 	      raise ArgumentError.new('Name is nil. Aborting...')
 	    elsif !name.nil? && !description.nil?
 	      suburl << "&name=" + URI.escape(name).to_s + "&description=" + URI.escape(description).to_s
@@ -220,7 +198,6 @@ require "locklizard/version"
          end
        end
 
-
        def get_customer_webviewer_ssourl(custid=nil)
         suburl = "&action=get_customer_webviewer_ssourl"
         suburl << "&custid=" + custid.to_s
@@ -239,5 +216,3 @@ require "locklizard/version"
       return Api.new(key,secret)
     end
 end
-  
-
