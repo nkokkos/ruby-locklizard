@@ -4,8 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'locklizard/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "locklizard"
-  spec.version       = Locklizard::VERSION
+  spec.name          = "LockLizard"
+  spec.version       = LockLizard::VERSION
   spec.authors       = ["Nick Kokkos"]
   spec.email         = ["nkokkos@gmail.com"]
 
