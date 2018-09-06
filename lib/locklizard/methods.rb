@@ -1,5 +1,5 @@
 module  LockLizardMethods
-    
+     
   #helper methods:
     def success?(resp)
       resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS

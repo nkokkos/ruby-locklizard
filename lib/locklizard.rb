@@ -1,12 +1,26 @@
 require 'rest_client'
 require 'time'
+ 
 require_relative 'locklizard/methods'
 require_relative 'locklizard/version'
-require_relative 'locklizard/endpoints'  
+
+module  LockLizard
+  
+  BASE_URL = "https://drm.eap.gr/documents/Interop.php"
+  WEBVIEWER_URL = "https://drm.eap.gr/webviewer "
+  SUCCESS  = "OK"
+  FAILED   = "Failed"
+  
+  #https://stackoverflow.com/questions/16420236/why-are-constants-from-extended-module-not-available-in-class-methods-declared-w#
+  def self.Api(key=nil,secret=nil)
+    return Api.new(key,secret)
+  end
+  
+end
   
 class Api
   #include methods from 'LockLizardMethods' module as instance methods
-    include LockLizardMethods
+  include LockLizardMethods
 
     def initialize(accesskey=nil, secretkey=nil)
       @admin    = accesskey || ENV['LOCKLIZARD_ADMIN']
@@ -15,8 +29,4 @@ class Api
     
 end#class Api
   
-module  LockLizard
-  def self.Api(key=nil,secret=nil)
-    return Api.new(key,secret)
-  end
-end
+
