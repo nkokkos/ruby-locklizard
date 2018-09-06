@@ -1,27 +1,29 @@
 module  LockLizardMethods
     
   #helper methods:
-  def success?(resp)
-    resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
-  end
+    def success?(resp)
+      resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
+    end
 
-  def failed?(resp)
-    resp.to_str.split("\n").first.gsub("\n",'') == FAILED
-  end
+    def failed?(resp)
+      resp.to_str.split("\n").first.gsub("\n",'') == FAILED
+    end
 
-  def admin_url
-    "?un=" +  URI.escape(@admin) + "&pw=" +  URI.escape(@password)
-  end
+    def admin_url
+      "?un=" +  URI.escape(@admin) + "&pw=" +  URI.escape(@password)
+    end
 
-  #def clean_response(resp)
-    #  if success?(resp)
-    #    line_string = StringIO.new 
-    #    line_string << resp.to_str.split
-  #end
+    def clean_response(resp)
+      if success?(resp)
+        line_string = StringIO.new 
+        line_string << resp.to_str.split
+        line_string
+      end
+    end
 
   #webviewer should be 1 or 0
   def set_customer_webviewer_access(custid, webviewer, username, password)
-  
+
     suburl = "&action=set_customer_webviewer_access" + "&" + 
             "custid="    + custid.to_s    + "&" + 
             "webviewer=" + webviewer.to_s + "&" +
@@ -29,15 +31,15 @@ module  LockLizardMethods
             "password="  + URI.escape(password).to_s  + "&" +
             "noregemail=1"
 
- target_url = BASE_URL + admin_url + suburl 
+    target_url = BASE_URL + admin_url + suburl 
  
- begin
-   RestClient.get(target_url)
- rescue RestClient::ExceptionWithResponse => err
-   err.response
- end
+   begin
+     RestClient.get(target_url)
+   rescue RestClient::ExceptionWithResponse => err
+     err.response
+   end
 
-end#set_customer_webviewer_access
+  end#set_customer_webviewer_access
 
 def add_customer(name, email)
  suburl = "&action=add_customer" + "&" + 

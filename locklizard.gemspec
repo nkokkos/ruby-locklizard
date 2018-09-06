@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Nick Kokkos"]
   spec.email         = ["nkokkos@gmail.com"]
 
-  spec.summary       = %q{a short summary, because Rubygems requires one.}
-  spec.description   = %q{a longer description or delete this line.}
+  spec.summary       = %q{Ruby gem for LockLizard Ecommerce API}
+  #spec.description   = %q{a longer description or delete this line.}
   spec.homepage      = "http://localhost"
   spec.license       = "MIT"
 
