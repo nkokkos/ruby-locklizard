@@ -1,6 +1,10 @@
 module  LockLizardMethods
+  
+  #Include constants from LockLizardEndPoints module. They will be available to all the 
+  #methods below:
   include LockLizardEndPoints     
-  #helper methods:
+  
+    #helper methods:
     def success?(resp)
       resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
     end
@@ -20,6 +24,8 @@ module  LockLizardMethods
         line_string
       end
     end
+
+  #action methods based on Locklizard API documentation
 
   #webviewer should be 1 or 0
   def set_customer_webviewer_access(custid, webviewer, username, password)
