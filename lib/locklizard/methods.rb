@@ -31,7 +31,7 @@ module  LockLizardMethods
             "password="  + URI.escape(password).to_s  + "&" +
             "noregemail=1"
 
-    target_url = BASE_URL + admin_url + suburl 
+    target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl 
  
    begin
      RestClient.get(target_url)
@@ -51,8 +51,7 @@ def add_customer(name, email)
             "licenses=10"        + "&" + 
             "webviewer=1"
  
-  target_url = BASE_URL + admin_url + suburl 
- 
+    target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl 
  begin
    RestClient.get(target_url)
  rescue RestClient::ExceptionWithResponse => err
@@ -73,7 +72,7 @@ def list_customer(custid=nil, email=nil)
      suburl << "&custid=" + custid.to_s
  end
 
- target_url = BASE_URL + admin_url + suburl 
+ target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
  
  begin
    RestClient.get(target_url)
@@ -98,7 +97,7 @@ suburl = "&action=grant_publication_access"
    suburl << "&custid="     + custid.to_s + "&" + "publication=" + publication.to_s
  end
 
- target_url = BASE_URL + admin_url + suburl 
+ target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
  
  begin
     RestClient.get(target_url)
@@ -115,7 +114,7 @@ def set_customer_license_count(custid, licenses)
      suburl << "&custid="  + custid.to_s + "&" +
                "licenses=" + licenses.to_s
     end
-  target_url = BASE_URL + admin_url + suburl
+    target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
   begin
     RestClient.get(target_url)
   rescue RestClient::ExceptionWithResponse => err
@@ -132,7 +131,7 @@ def update_customer_license_count(custid, licenses)
                    "licenses="    + licenses.to_s
 
     end
-      target_url = BASE_URL + admin_url + suburl
+    target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
   begin
     RestClient.get(target_url)
   rescue RestClient::ExceptionWithResponse => err
@@ -152,8 +151,7 @@ def add_publication(name, description)
  elsif !name.nil? && !description.nil?
    suburl << "&name=" + URI.escape(name).to_s + "&description=" + URI.escape(description).to_s
  end
-
-target_url = BASE_URL + admin_url + suburl 
+ target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
   begin
     RestClient.get(target_url)
   rescue RestClient::ExceptionWithResponse => err
@@ -164,7 +162,7 @@ end#add_publication
 
 def list_publications
   suburl = "&action=list_publications" 
-  target_url = BASE_URL + admin_url + suburl 
+  target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
  
  begin
    RestClient.get(target_url)
@@ -176,7 +174,7 @@ end#list_publications
   def get_customer_license(custid=nil)
     suburl = "&action=get_customer_license"
     suburl << "&custid=" + custid.to_s 
-    target_url = BASE_URL + admin_url + suburl
+    target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
     begin
       RestClient.get(target_url)
     rescue RestClient::ExceptionWithResponse => err
@@ -187,7 +185,7 @@ end#list_publications
   def get_customer_webviewer_ssourl(custid=nil)
    suburl = "&action=get_customer_webviewer_ssourl"
    suburl << "&custid=" + custid.to_s
-   target_url = BASE_URL + admin_url + suburl
+   target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
    begin
      RestClient.get(target_url)
    rescue RestClient::ExceptionWithResponse => err
