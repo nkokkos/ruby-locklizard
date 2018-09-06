@@ -1,4 +1,4 @@
-require_relative "endpoints"
+require "endpoints"
 
 module  LockLizardMethods
   include LockLizardEndPoints     
