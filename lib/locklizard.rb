@@ -2,9 +2,9 @@ require 'rest_client'
 require 'http'
 require 'time'
 
-require_relative 'locklizard/endpoints'
-require_relative 'locklizard/methods'
-require_relative 'locklizard/version'
+require 'locklizard/endpoints'
+require 'locklizard/methods'
+require 'locklizard/version'
 
 module  LockLizard
 
