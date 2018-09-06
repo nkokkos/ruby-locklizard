@@ -1,5 +1,7 @@
+require_relative "endpoints"
+
 module  LockLizardMethods
-  include LockLizard     
+  include LockLizardEndPoints     
   #helper methods:
     def success?(resp)
       resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
@@ -72,7 +74,7 @@ def list_customer(custid=nil, email=nil)
      suburl << "&custid=" + custid.to_s
  end
 
- target_url = LockLizard::BASE_URL + LockLizard::admin_url + suburl
+ target_url = BASE_URL + admin_url + suburl
  
  begin
    RestClient.get(target_url)

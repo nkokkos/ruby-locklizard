@@ -5,12 +5,7 @@ require_relative 'locklizard/methods'
 require_relative 'locklizard/version'
 
 module  LockLizard
-  
-  BASE_URL = "https://drm.eap.gr/documents/Interop.php"
-  WEBVIEWER_URL = "https://drm.eap.gr/webviewer "
-  SUCCESS  = "OK"
-  FAILED   = "Failed"
-  
+      
   #https://stackoverflow.com/questions/16420236/why-are-constants-from-extended-module-not-available-in-class-methods-declared-w#
   def self.Api(key=nil,secret=nil)
     return Api.new(key,secret)
