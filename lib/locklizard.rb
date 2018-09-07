@@ -10,8 +10,8 @@ module LockLizard
 
   #https://stackoverflow.com/questions/16420236/why-are-constants-from-extended-module-not-available-in-class-methods-declared-w#
   
-  #define a class method "Api" within LockLizard module. Using this approach, you create a instance class
-  #like this:
+  #define a class method "Api" within LockLizard module. 
+  #Using this approach, you create a instance class like this:
   #connection = LockLizard.Api("key","secret")
   def self.Api(key=nil,secret=nil)
     return Api.new(key,secret)
