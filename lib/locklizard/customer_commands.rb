@@ -40,17 +40,19 @@ module CustomerCommands
     def list_customer(custid=nil, email=nil)
     
       suburl = "&action=list_customer&nodocs=1" 
-        if custid.nil? && email.nil?
+      
+      if custid.nil? && email.nil?
         raise ArgumentError.new('Parameters are nil. Aborting...')
-        elsif !custid.nil? && email.nil?
-          suburl << "&custid=" + custid.to_s
-        elsif custid.nil? && !email.nil? 
-          suburl << "&email=" + URI.escape(email)
-        elsif !custid.nil? && !email.nil?
-          suburl << "&custid=" + custid.to_s
-        end
+      elsif !custid.nil? && email.nil?
+        suburl << "&custid=" + custid.to_s
+      elsif custid.nil? && !email.nil? 
+        suburl << "&email=" + URI.escape(email)
+      elsif !custid.nil? && !email.nil?
+        suburl << "&custid=" + custid.to_s
+      end
 
-      call_target_url(BASE_URL + admin_url + suburl)# call private method
+      puts "#{BASE_URL}#{admin_url}#{suburl}"
+      #call_target_url(BASE_URL + admin_url + suburl)# call private method
 
     end#list_customer
 

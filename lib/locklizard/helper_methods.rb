@@ -1,9 +1,7 @@
 module HelperMethods
 
   #helper methods:
-  
-  private
-  
+
   def success?(resp)
     resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
   end
@@ -11,7 +9,18 @@ module HelperMethods
   def failed?(resp)
     resp.to_str.split("\n").first.gsub("\n",'') == FAILED
   end
+
+  # clean respone
+  def clean_response(resp)
+    if success?(resp)
+      line_string = StringIO.new 
+      line_string << resp.to_str.split
+      line_string
+    end
+  end
   
+  private
+
   def admin_url
     #"?un=" +  URI.escape(@admin) + "&pw=" +  URI.escape(@password)
    "?key=" + URI.escape(@access_key)
@@ -28,13 +37,5 @@ module HelperMethods
     end
   end
   
-  # clean respone
-  def clean_response(resp)
-    if success?(resp)
-      line_string = StringIO.new 
-      line_string << resp.to_str.split
-      line_string
-    end
-  end
 
 end
