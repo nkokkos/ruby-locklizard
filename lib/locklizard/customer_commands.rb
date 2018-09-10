@@ -1,0 +1,112 @@
+module CustomerCommands
+  
+  #Include constants from LockLizardEndPoints module. They will be available to all the 
+  #methods below:
+  include LockLizardEndPoints     
+  
+    ############# action methods based on Locklizard API documentation#######################
+
+    # set_customer_webviewer_access, webviewer should be 1 or 0
+    def set_customer_webviewer_access(custid, webviewer, username, password)
+    
+      suburl = "&action=set_customer_webviewer_access" + "&" + 
+        "custid="    + custid.to_s    + "&" + 
+        "webviewer=" + webviewer.to_s + "&" +
+        "username="  + URI.escape(username).to_s  + "&" +
+        "password="  + URI.escape(password).to_s  + "&" +
+        "noregemail=1"
+
+      call_target_url(BASE_URL + admin_url + suburl)
+
+    end
+
+    #  add_customer
+    def add_customer(name, email)
+      
+      suburl = "&action=add_customer" + "&" + 
+        "name="  + URI.escape(email) + "&" + 
+        "email=" + URI.escape(email) + "&" +
+        "start_date=" + Time.now.utc.strftime("%m-%d-%Y") + "&" +
+        "end_type=unlimited" + "&" +
+        "noregemail=1"       + "&" +
+        "licenses=10"        + "&" + 
+        "webviewer=1"
+ 
+      call_target_url(BASE_URL + admin_url + suburl)
+
+    end
+
+    # list_customer
+    def list_customer(custid=nil, email=nil)
+    
+      suburl = "&action=list_customer&nodocs=1" 
+        if custid.nil? && email.nil?
+        raise ArgumentError.new('Parameters are nil. Aborting...')
+        elsif !custid.nil? && email.nil?
+          suburl << "&custid=" + custid.to_s
+        elsif custid.nil? && !email.nil? 
+          suburl << "&email=" + URI.escape(email)
+        elsif !custid.nil? && !email.nil?
+          suburl << "&custid=" + custid.to_s
+        end
+
+      call_target_url(BASE_URL + admin_url + suburl)
+
+    end#list_customer
+
+
+
+def set_customer_license_count(custid, licenses)
+   
+  suburl = "&action=set_customer_license_count"
+    
+  if custid.nil? && licenses.nil?
+      raise ArgumentError.new('Parameters are nil. Aborting...')
+    elsif !custid.nil? && !licenses.nil?
+      suburl << "&custid="  + custid.to_s + "&" + "licenses=" + licenses.to_s
+    end
+
+   call_target_url(BASE_URL + admin_url + suburl)
+
+end
+
+def update_customer_license_count(custid, licenses)
+   suburl = "&action=update_customer_license_count"
+   if custid.nil? && publication.nil?
+         raise ArgumentError.new('Parameters are nil. Aborting...')
+       elsif !custid.nil? && !licenses.nil?
+         suburl << "&custid="     + custid.to_s + "&" +
+                   "licenses="    + licenses.to_s
+
+    end
+    target_url = BASE_URL + admin_url + suburl
+  begin
+    RestClient.get(target_url)
+  rescue RestClient::ExceptionWithResponse => err
+    err.response
+  end
+end
+
+  def get_customer_license(custid=nil)
+    suburl = "&action=get_customer_license"
+    suburl << "&custid=" + custid.to_s 
+    target_url = BASE_URL + admin_url + suburl
+    begin
+      RestClient.get(target_url)
+    rescue RestClient::ExceptionWithResponse => err
+      err.response
+    end
+  end
+
+  def get_customer_webviewer_ssourl(custid=nil)
+   suburl = "&action=get_customer_webviewer_ssourl"
+   suburl << "&custid=" + custid.to_s
+   target_url = BASE_URL + admin_url + suburl
+   begin
+     RestClient.get(target_url)
+   rescue RestClient::ExceptionWithResponse => err
+     err.response
+   end
+ end
+ 
+end
