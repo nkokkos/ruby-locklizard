@@ -2,7 +2,7 @@ module HelperMethods
 
   #helper methods:
   
-  private: 
+  private
   
   def success?(resp)
     resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
