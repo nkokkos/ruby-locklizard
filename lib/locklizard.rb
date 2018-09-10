@@ -5,6 +5,7 @@ require 'time'
 require 'locklizard/endpoints'
 require 'locklizard/helper_methods'
 require 'locklizard/customer_commands'
+require 'locklizard/publication_commands'
 require 'locklizard/version'
 
 # module LockLizard
