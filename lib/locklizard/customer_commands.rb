@@ -52,7 +52,7 @@ module CustomerCommands
       end
 
       puts "#{BASE_URL}#{admin_url}#{suburl}"
-      #call_target_url(BASE_URL + admin_url + suburl)# call private method
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
 
     end#list_customer
 
