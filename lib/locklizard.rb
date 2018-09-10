@@ -27,7 +27,7 @@ end
 module LockLizard
 
   def self.Api(key = nil)
-    raise ArgumentError.new("Access key should not be nil/blank")  
+    raise ArgumentError.new("Access key should not be nil/blank") if key.nil?  
     return Api.new(key)
   end
 
