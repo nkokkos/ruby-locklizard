@@ -1,5 +1,6 @@
 module HelperMethods
 
+  include LockLizardEndPoints
   #helper methods:
 
   def success?(resp)
