@@ -32,6 +32,7 @@ class Api
   def initialize(accesskey = nil)
     #@admin    = accesskey || ENV['LOCKLIZARD_ADMIN']
     #@password = secretkey || ENV['LOCKLIZARD_PASSWORD']
+    # 863392e060aa7c6ef90a675e97062ee1599132ccd9300e0619fc19fdeb3a406f
     @access_key = accesskey || ENV['LOCKLIZARD_ACCESS_KEY']
   end
     

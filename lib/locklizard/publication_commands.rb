@@ -28,21 +28,26 @@ module PublicationCommands
   
   # list_publications
   def list_publications
+
     suburl = "&action=list_publications" 
+  
     call_target_url(BASE_URL + admin_url + suburl) 
+  
   end#list_publications
   
   # add_publication
   def add_publication(name, description)
+
     suburl = "&action=add_publication" 
-      if name.nil? && description.nil?
-        raise ArgumentError.new('Parameters are nil. Aborting...')
-      elsif !name.nil? && description.nil?
-        suburl << "&name=" + URI.escape(name).to_s
-      elsif name.nil? && !description.nil? 
-        raise ArgumentError.new('Name is nil. Aborting...')
-      elsif !name.nil? && !description.nil?
-        suburl << "&name=" + URI.escape(name).to_s + "&description=" + URI.escape(description).to_s
+      
+    if name.nil? && description.nil?
+      raise ArgumentError.new('Parameters are nil. Aborting...')
+    elsif !name.nil? && description.nil?
+      suburl << "&name=" + URI.escape(name).to_s
+    elsif name.nil? && !description.nil? 
+      raise ArgumentError.new('Name is nil. Aborting...')
+    elsif !name.nil? && !description.nil?
+      suburl << "&name=" + URI.escape(name).to_s + "&description=" + URI.escape(description).to_s
     end
 
     call_target_url(BASE_URL + admin_url + suburl)

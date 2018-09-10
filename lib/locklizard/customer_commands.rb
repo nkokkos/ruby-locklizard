@@ -15,12 +15,12 @@ module CustomerCommands
         "username="  + URI.escape(username).to_s  + "&" +
         "password="  + URI.escape(password).to_s  + "&" +
         "noregemail=1"
-
-      call_target_url(BASE_URL + admin_url + suburl)
+      
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
 
     end
 
-    #  add_customer
+    # add_customer
     def add_customer(name, email)
       
       suburl = "&action=add_customer" + "&" + 
@@ -32,7 +32,7 @@ module CustomerCommands
         "licenses=10"        + "&" + 
         "webviewer=1"
  
-      call_target_url(BASE_URL + admin_url + suburl)
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
 
     end
 
@@ -50,63 +50,55 @@ module CustomerCommands
           suburl << "&custid=" + custid.to_s
         end
 
-      call_target_url(BASE_URL + admin_url + suburl)
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
 
     end#list_customer
 
-
-
-def set_customer_license_count(custid, licenses)
-   
-  suburl = "&action=set_customer_license_count"
+    # set_customer_license_count
+    def set_customer_license_count(custid, licenses)
     
-  if custid.nil? && licenses.nil?
-      raise ArgumentError.new('Parameters are nil. Aborting...')
-    elsif !custid.nil? && !licenses.nil?
-      suburl << "&custid="  + custid.to_s + "&" + "licenses=" + licenses.to_s
-    end
+      suburl = "&action=set_customer_license_count"
+  
+      if custid.nil? && licenses.nil?
+        raise ArgumentError.new('Parameters are nil. Aborting...')
+      elsif !custid.nil? && !licenses.nil?
+        suburl << "&custid="  + custid.to_s + "&" + "licenses=" + licenses.to_s
+      end
 
-   call_target_url(BASE_URL + admin_url + suburl)
-
-end
-
-def update_customer_license_count(custid, licenses)
-   suburl = "&action=update_customer_license_count"
-   if custid.nil? && publication.nil?
-         raise ArgumentError.new('Parameters are nil. Aborting...')
-       elsif !custid.nil? && !licenses.nil?
-         suburl << "&custid="     + custid.to_s + "&" +
-                   "licenses="    + licenses.to_s
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
 
     end
-    target_url = BASE_URL + admin_url + suburl
-  begin
-    RestClient.get(target_url)
-  rescue RestClient::ExceptionWithResponse => err
-    err.response
-  end
-end
 
-  def get_customer_license(custid=nil)
-    suburl = "&action=get_customer_license"
-    suburl << "&custid=" + custid.to_s 
-    target_url = BASE_URL + admin_url + suburl
-    begin
-      RestClient.get(target_url)
-    rescue RestClient::ExceptionWithResponse => err
-      err.response
+    def update_customer_license_count(custid, licenses)
+      
+      suburl = "&action=update_customer_license_count"
+      
+      if custid.nil? && publication.nil?
+        raise ArgumentError.new('Parameters are nil. Aborting...')
+      elsif !custid.nil? && !licenses.nil?
+        suburl << "&custid=" + custid.to_s + "&" + "licenses=" + licenses.to_s
+      end
+
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
+
     end
-  end
 
-  def get_customer_webviewer_ssourl(custid=nil)
-   suburl = "&action=get_customer_webviewer_ssourl"
-   suburl << "&custid=" + custid.to_s
-   target_url = BASE_URL + admin_url + suburl
-   begin
-     RestClient.get(target_url)
-   rescue RestClient::ExceptionWithResponse => err
-     err.response
-   end
- end
- 
+    def get_customer_license(custid=nil)
+
+      suburl = "&action=get_customer_license"
+      suburl << "&custid=" + custid.to_s 
+      
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
+    
+    end
+
+    def get_customer_webviewer_ssourl(custid=nil)
+
+      suburl = "&action=get_customer_webviewer_ssourl"
+      suburl << "&custid=" + custid.to_s
+    
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
+
+    end
+    
 end
