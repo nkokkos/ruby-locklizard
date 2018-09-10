@@ -13,8 +13,7 @@ class Api
   include CustomerCommands
   include PublicationCommands
 
-  def initialize(key = nil)
-    raise ArgumentError.new("Access key should not be nil/blank") if key.nil?  
+  def initialize(key = nil) 
     #863392e060aa7c6ef90a675e97062ee1599132ccd9300e0619fc19fdeb3a406f
     @access_key = key || ENV['LOCKLIZARD_ACCESS_KEY']
   end
