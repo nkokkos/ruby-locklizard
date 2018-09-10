@@ -1,6 +1,8 @@
 module HelperMethods
 
+  # include LockLizardEndPoints constants as constants to the following methods
   include LockLizardEndPoints
+
   #helper methods:
 
   def success?(resp)
