@@ -40,5 +40,5 @@ Gem::Specification.new do |spec|
   #spec.add_development_dependency "http", "~> 3.3.0"
   
   #runtime dependencies
-  spec.add_runtime_dependency "http", "~> 3.3.0"  
+  add_runtime_dependency 'http', '~> 3.3', '>= 3.3.0'
 end
