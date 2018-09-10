@@ -14,6 +14,7 @@ class Api
   include PublicationCommands
 
   def initialize(accesskey = nil)
+    raise ArgumentError.new("Access key should not be nil/blank") if key.nil?  
     #863392e060aa7c6ef90a675e97062ee1599132ccd9300e0619fc19fdeb3a406f
     @access_key = accesskey || ENV['LOCKLIZARD_ACCESS_KEY']
   end
@@ -27,13 +28,8 @@ end
 module LockLizard
 
   def self.Api(key = nil)
-    raise ArgumentError.new("Access key should not be nil/blank") if key.nil?  
     return Api.new(key)
   end
 
   # https://stackoverflow.com/questions/16420236/why-are-constants-from-extended-module-not-available-in-class-methods-declared-w# 
 end
-
-
-  
-
