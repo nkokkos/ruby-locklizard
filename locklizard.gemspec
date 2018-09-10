@@ -1,20 +1,19 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'locklizard/version'
+require "LockLizard/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "locklizard"
   spec.version       = LockLizard::VERSION
-  spec.authors       = ["Nick Kokkos"]
+  spec.authors       = ["Nick K"]
   spec.email         = ["nkokkos@gmail.com"]
 
-  spec.summary       = %q{Ruby gem for LockLizard Ecommerce API}
-  #spec.description   = %q{a longer description or delete this line.}
-  spec.homepage      = "http://localhost"
+  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
+  #spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
- 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
@@ -33,12 +32,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  #development dependencies:
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
-  #spec.add_development_dependency "http", "~> 3.3.0"
-  
-  #runtime dependencies
-  spec.add_runtime_dependency 'http', '~> 3.3', '>= 3.3.0'
 end
