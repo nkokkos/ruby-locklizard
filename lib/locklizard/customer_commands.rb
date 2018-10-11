@@ -104,5 +104,23 @@ module CustomerCommands
       call_target_url(BASE_URL + admin_url + suburl)# call private method
 
     end
+
+   
+     def set_customer_webviewer_ssourl(custid = nil)
+
+      raise ArgumentError.new("Customer id should be nil/blank") if custid.nil?
+
+      suburl = "&action=set_customer_multsim_logins"
+      suburl << "&custid=" + custid.to_s
+
+      call_target_url(BASE_URL + admin_url + suburl)# call private method
+
+    end
+
+
+
+
+  
+ 
     
 end
