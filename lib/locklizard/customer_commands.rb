@@ -108,6 +108,12 @@ module CustomerCommands
       suburl << "&custid=" + custid.to_s + "&reset=1"
 
       call_target_url(BASE_URL + admin_url + suburl)# call private method
+      
+      suburl     = "&action=get_customer_webviewer_ssourl"
+      suburl_new << "&custid=" + custid.to_s
+
+      call_target_url(BASE_URL + admin_url + suburl_new)# call private method
+
 
     end
 
