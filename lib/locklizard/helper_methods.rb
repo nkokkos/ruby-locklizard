@@ -31,6 +31,7 @@ module HelperMethods
   
   # call final target url after having build the whole final url link from method:
   def call_target_url(target)
+  
     begin
       #RestClient.get(target_url)
       HTTP.get(target)
@@ -38,7 +39,7 @@ module HelperMethods
     rescue Exception => e 
       err.response
     end
+    
   end
-  
 
 end
