@@ -5,16 +5,18 @@ module HelperMethods
 
   #helper methods:
 
-  def success?(resp)
-    resp.to_str.split("\n").first.gsub("\n",'') == SUCCESS
+  def success?(response = nil)
+    raise ArgumentError if response.nil?
+    response.to_str.split("\n").first.gsub("\n",'') == SUCCESS
   end
   
-  def failed?(resp)
+  def failed?(response = nil)
+    raise ArgumentError if response.nil?
     resp.to_str.split("\n").first.gsub("\n",'') == FAILED
   end
 
   # clean respone
-  def clean_response(resp)
+  def clean_response(response)
     if success?(resp)
       line_string = StringIO.new 
       line_string << resp.to_str.split
