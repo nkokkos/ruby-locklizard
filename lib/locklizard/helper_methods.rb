@@ -39,7 +39,7 @@ module HelperMethods
       HTTP.get(target)
     #rescue RestClient::ExceptionWithResponse => err
     rescue Exception => e 
-      err.response
+      er.response
     end
     
   end
