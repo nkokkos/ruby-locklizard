@@ -65,6 +65,7 @@ module CustomerCommands
         call_target_url(BASE_URL + admin_url + suburl) # call private method
     end #resend_customer_web_viewer_login
 
+
     # set_customer_license_count
     def set_customer_license_count(custid = nil, licenses = nil)
 
@@ -84,9 +85,7 @@ module CustomerCommands
 
     end
 
-    def set
-
-
+  
     # fix this!!!!
     def update_customer_license_count(custid = nil, licenses = nil)
       
