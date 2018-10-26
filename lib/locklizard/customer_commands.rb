@@ -52,6 +52,19 @@ module CustomerCommands
 
     end #list_customer
 
+    # resend_customer_web_viewer_login
+    def resend_customer_web_viewer_login(custid = nil, webonly = 1)
+
+      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil?
+
+        suburl = "&action=resend_license" 
+        if !custid.nil? && 
+         suburl << "&custid=" + custid.to_s + "&webonly=" + webonly.to_s 
+        end
+        #puts "#{BASE_URL}#{admin_url}#{suburl}"
+        call_target_url(BASE_URL + admin_url + suburl) # call private method
+    end #resend_customer_web_viewer_login
+
     # set_customer_license_count
     def set_customer_license_count(custid = nil, licenses = nil)
 
@@ -70,6 +83,9 @@ module CustomerCommands
       call_target_url(BASE_URL + admin_url + suburl) # call private method
 
     end
+
+    def set
+
 
     # fix this!!!!
     def update_customer_license_count(custid = nil, licenses = nil)
