@@ -47,7 +47,7 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 
-      #puts "#{BASE_URL}#{admin_url}#{suburl}"
+      # maybe use interpolation in future "#{BASE_URL}#{admin_url}#{suburl}"
       call_target_url(BASE_URL + admin_url + suburl) # call private method
 
     end #list_customer
@@ -57,12 +57,11 @@ module CustomerCommands
 
       raise ArgumentError.new('Customer Id and email are nil.') if custid.nil?
 
-        suburl = "&action=resend_license" 
-        if !custid.nil? && 
-         suburl << "&custid=" + custid.to_s + "&webonly=" + webonly.to_s 
-        end
-        #puts "#{BASE_URL}#{admin_url}#{suburl}"
-        call_target_url(BASE_URL + admin_url + suburl) # call private method
+      suburl = "&action=resend_license"  
+      suburl << "&custid=" + custid.to_s + "&webonly=" + webonly.to_s 
+      
+      call_target_url(BASE_URL + admin_url + suburl) # call private method
+
     end #resend_customer_web_viewer_login
 
 
@@ -118,17 +117,19 @@ module CustomerCommands
     def get_customer_webviewer_ssourl(custid = nil)
 
       raise ArgumentError.new("Customer id should not be nil/blank") if custid.nil?
-
+      
+      #call reset twice to reset ssourl for safe reasons
       suburl_reset = "&action=get_customer_webviewer_ssourl&custid=" + custid.to_s + "&reset=1"
 
       call_target_url(BASE_URL + admin_url + suburl_reset)# call private method
       
+      ## add here checks for return values / future work
+
       suburl = "&action=get_customer_webviewer_ssourl"
       suburl << "&custid=" + custid.to_s
 
       call_target_url(BASE_URL + admin_url + suburl)# call private method
-
-
+      
     end
 
     # Sets customer Web Viewer multiple logins - This command is used to 
