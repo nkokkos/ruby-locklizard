@@ -32,10 +32,10 @@ module CustomerCommands
 
     end
 
-    # list_customer
+    # list_customer customer id and email parameters
     def list_customer(custid = nil, email = nil)
 
-      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil? && email.nil?
+      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil? &&  email.nil?
       
       suburl = "&action=list_customer&nodocs=1" 
       
@@ -51,6 +51,26 @@ module CustomerCommands
       call_target_url(BASE_URL + admin_url + suburl) # call private method
 
     end #list_customer
+
+    # list_customer customer id and email parameters with full docs
+    def list_customer_full(custid = nil, email = nil)
+
+      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil? &&  email.nil?
+      
+      suburl = "&action=list_customer" 
+      
+      if !custid.nil? && email.nil?
+        suburl << "&custid=" + custid.to_s
+      elsif custid.nil? && !email.nil? 
+        suburl << "&email=" + URI.escape(email)
+      elsif !custid.nil? && !email.nil?
+        suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
+      end
+
+      # maybe use interpolation in future "#{BASE_URL}#{admin_url}#{suburl}"
+      call_target_url(BASE_URL + admin_url + suburl) # call private method
+
+    end #list_customer_full
 
     # resend_customer_web_viewer_login
     def resend_customer_web_viewer_login(custid = nil, webonly = 1)
