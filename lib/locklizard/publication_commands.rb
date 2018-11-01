@@ -12,7 +12,7 @@ module PublicationCommands
   # end_date – the date from which you want to stop access to the publication (optional)
 
   # grant_publication_access
-  def grant_publication_access(custid, publication)
+  def grant_publication_access(custid=nil, publication=nil)
   
     suburl = "&action=grant_publication_access"
      
