@@ -67,7 +67,7 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 
-      # maybe use interpolation in future "#{BASE_URL}#{admin_url}#{suburl}"
+      # "#{admin_url}#{suburl}"
       call_target_url(admin_url + suburl) # call private method
 
     end #list_customer_full
@@ -148,7 +148,7 @@ module CustomerCommands
       suburl = "&action=get_customer_webviewer_ssourl"
       suburl << "&custid=" + custid.to_s
 
-      call_target_url(BASE_URL + admin_url + suburl)# call private method
+      call_target_url(admin_url + suburl)# call private method
       
     end
 
