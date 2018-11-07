@@ -47,6 +47,10 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 
+     pu
+
+     puts BASE_URL
+
       puts "#{BASE_URL}#{admin_url}#{suburl}"
       call_target_url(BASE_URL + admin_url + suburl) # call private method
 
