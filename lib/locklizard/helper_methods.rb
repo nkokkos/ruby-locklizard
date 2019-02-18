@@ -7,21 +7,17 @@ module HelperMethods
 
   def success?(response = nil)
     raise ArgumentError if response.nil?
-    response.to_str.split("\n").first.gsub("\n",'') == SUCCESS
+    response.to_str.split("\n").first.gsub(/\n/,'') == SUCCESS
   end
   
   def failed?(response = nil)
     raise ArgumentError if response.nil?
-    resp.to_str.split("\n").first.gsub("\n",'') == FAILED
+    resp.to_str.split("\n").first.gsub(/\n/,'') == FAILED
   end
 
   # clean respone
   def clean_response(response)
-    if success?(resp)
-      line_string = StringIO.new 
-      line_string << resp.to_str.split
-      line_string
-    end
+   raise "Not Implemented"
   end
   
   private
@@ -36,7 +32,7 @@ module HelperMethods
   
     begin
       #RestClient.get(target_url)
-      HTTP.get(target)
+      HTTP.get(@locklizard_base_url + target)
     #rescue RestClient::ExceptionWithResponse => err
     rescue Exception => e 
       e.message

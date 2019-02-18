@@ -13,10 +13,12 @@ class Api
   include CustomerCommands
   include PublicationCommands
 
-  def initialize(key = nil) 
+  def initialize(key = nil, locklizard_base_url = nil, locklizard_webviewer_url = nil) 
     @access_key = key || ENV['LOCKLIZARD_ACCESS_KEY']
+    @locklizard_base_url = locklizard_base_url || ENV['LOCKLIZARD_BASE_URL']
+    @locklizard_webviewer_url = locklizard_webviewer_url || ENV['LOCKLIZARD_VIEWER']
   end
-    
+
 end
 
 # module LockLizard

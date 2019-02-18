@@ -22,7 +22,7 @@ module PublicationCommands
       suburl << "&custid=" + custid.to_s + "&" + "publication=" + publication.to_s
     end
 
-    call_target_url(BASE_URL + admin_url + suburl)
+    call_target_url(admin_url + suburl)
   
   end
   
@@ -31,7 +31,7 @@ module PublicationCommands
 
     suburl = "&action=list_publications" 
   
-    call_target_url(BASE_URL + admin_url + suburl) 
+    call_target_url(admin_url + suburl) 
   
   end#list_publications
   
@@ -50,7 +50,7 @@ module PublicationCommands
       suburl << "&name=" + URI.escape(name).to_s + "&description=" + URI.escape(description).to_s
     end
 
-    call_target_url(BASE_URL + admin_url + suburl)
+    call_target_url(admin_url + suburl)
    
   end
 

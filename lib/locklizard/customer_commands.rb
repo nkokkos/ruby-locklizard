@@ -12,7 +12,7 @@ module CustomerCommands
         "password="  + URI.escape(password).to_s  + "&" +
         "noregemail=1" # noregemail means don't send the webviewer registration email
       
-      call_target_url(BASE_URL + admin_url + suburl) #call private method
+      call_target_url(admin_url + suburl) #call private method
 
     end
 
@@ -28,7 +28,7 @@ module CustomerCommands
         "licenses=#{licenses}" + "&" + 
         "webviewer=#{webviewer}" + "&" + "webmslogins=#{webmslogins}"
 
-      call_target_url(BASE_URL + admin_url + suburl) #call private method
+      call_target_url(admin_url + suburl) #call private method
 
     end
 
@@ -47,8 +47,8 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 
-      puts  "#{BASE_URL}#{admin_url}#{suburl}"
-      call_target_url(BASE_URL + admin_url + suburl) # call private method
+      puts "#{BASE_URL}#{admin_url}#{suburl}"
+      call_target_url(admin_url + suburl) # call private method
 
     end #list_customer
 
@@ -68,7 +68,7 @@ module CustomerCommands
       end
 
       # maybe use interpolation in future "#{BASE_URL}#{admin_url}#{suburl}"
-      call_target_url(BASE_URL + admin_url + suburl) # call private method
+      call_target_url(admin_url + suburl) # call private method
 
     end #list_customer_full
 
@@ -80,7 +80,7 @@ module CustomerCommands
       suburl = "&action=resend_license"  
       suburl << "&custid=" + custid.to_s + "&webonly=" + webonly.to_s 
       
-      call_target_url(BASE_URL + admin_url + suburl) # call private method
+      call_target_url(admin_url + suburl) # call private method
 
     end #resend_customer_web_viewer_login
 
@@ -100,7 +100,7 @@ module CustomerCommands
         raise ArgumentError.new("custid should not be nil/blank")
       end
 
-      call_target_url(BASE_URL + admin_url + suburl) # call private method
+      call_target_url(admin_url + suburl) # call private method
 
     end
 
@@ -118,7 +118,7 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&" + "licenses=" + licenses.to_s
       end
       
-      call_target_url(BASE_URL + admin_url + suburl) # call private method
+      call_target_url(admin_url + suburl) # call private method
 
     end
 
@@ -130,7 +130,7 @@ module CustomerCommands
       suburl = "&action=get_customer_license"
       suburl << "&custid=" + custid.to_s
 
-      call_target_url(BASE_URL + admin_url + suburl) # call private method
+      call_target_url(admin_url + suburl) # call private method
 
     end
 
@@ -148,7 +148,7 @@ module CustomerCommands
       suburl = "&action=get_customer_webviewer_ssourl"
       suburl << "&custid=" + custid.to_s
 
-      call_target_url(BASE_URL + admin_url + suburl)# call private method
+      call_target_url(admin_url + suburl)# call private method
       
     end
 
@@ -163,10 +163,9 @@ module CustomerCommands
       suburl = "&action=set_customer_multsim_logins"
       suburl << "&custid=" + custid.to_s + "&webmslogins=#{wewebmslimit}"
 
-      call_target_url(BASE_URL + admin_url + suburl)# call private method
+      call_target_url(admin_url + suburl)# call private method
 
     end
-
 
     def list_customer_publications(response)
       response.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",") # returns an array of locklizard ids 
