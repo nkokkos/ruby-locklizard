@@ -8,13 +8,13 @@ require 'locklizard/publication_commands'
 require 'locklizard/version'
 
 class Api
-
   include HelperMethods
   include CustomerCommands
   include PublicationCommands
 
-  def initialize(key = nil, locklizard_base_url = nil, locklizard_webviewer_url = nil) 
-    attr_reader :locklizard_webviewer_url
+  attr_reader :locklizard_webviewer_url
+
+  def initialize(key = nil, locklizard_base_url = nil, locklizard_webviewer_url = nil)
     @access_key = key || ENV['LOCKLIZARD_ACCESS_KEY']
     @locklizard_base_url = locklizard_base_url || ENV['LOCKLIZARD_BASE_URL']
     @locklizard_webviewer_url = locklizard_webviewer_url || ENV['LOCKLIZARD_VIEWER']
