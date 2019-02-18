@@ -1,6 +1,6 @@
 module CustomerCommands
-  
-  include LockLizardEndPoints     
+
+  include HelperMethods  
   
     # set_customer_webviewer_access, webviewer should be 1 or 0, default is 1 = enabled
     def set_customer_webviewer_access(custid, webviewer = 1 , username, password)
@@ -166,7 +166,57 @@ module CustomerCommands
 	end	
 
 	# Accepts a response object and returns an array of customer's locklizard ids
-    def list_customer_publications(response)
+    def list_customer_publications(custid = nil, email = nil)
+	
+      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil? &&  email.nil?
+      
+      suburl = "&action=list_customer" 
+      
+      if !custid.nil? && email.nil?
+        suburl << "&custid=" + custid.to_s
+      elsif custid.nil? && !email.nil? 
+        suburl << "&email=" + URI.escape(email)
+      elsif !custid.nil? && !email.nil?
+        suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
+      end
+	  
+      result = call_target_url(suburl) # call private method
+	  
+	  if success(result)
+        publications = response.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",")
+      else
+	    raise ArgumentError.new('Parsing Error in list_customer_publications') 
+	  end
+	  
+	  return publications
+	  
+    end #list_customer
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
       response.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",") # returns an array of locklizard ids 
     end
 
