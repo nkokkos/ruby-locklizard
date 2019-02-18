@@ -47,7 +47,7 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 
-      # maybe use interpolation in future "#{BASE_URL}#{admin_url}#{suburl}"
+      puts  "#{BASE_URL}#{admin_url}#{suburl}"
       call_target_url(BASE_URL + admin_url + suburl) # call private method
 
     end #list_customer
@@ -165,6 +165,11 @@ module CustomerCommands
 
       call_target_url(BASE_URL + admin_url + suburl)# call private method
 
+    end
+
+
+    def list_customer_publications(response)
+      response.split("\n")[1].split(" ")[-2].gsub(/"/, '')
     end
 
 end
