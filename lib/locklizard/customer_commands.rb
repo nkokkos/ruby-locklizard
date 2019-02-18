@@ -182,7 +182,7 @@ module CustomerCommands
 	  
       result = call_target_url(suburl) # call private method
 	  
-	  if success(result)
+	  if success?(result)
         publications = response.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",")
       else
 	    raise ArgumentError.new('Parsing Error in list_customer_publications') 
