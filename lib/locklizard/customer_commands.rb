@@ -180,15 +180,15 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 	  
-      result = call_target_url(suburl) # call private method
-	  
-	  if success?(result)
-        publications = result.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",")
+      http_result = call_target_url(suburl) # call private method
+
+      if success?(result)
+        publications = http_result.to_str.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",")
       else
-	    raise ArgumentError.new('Parsing Error in list_customer_publications') 
-	  end
+       raise ArgumentError.new('Parsing Error in list_customer_publications') 
+      end
 	  
-	  return publications
+      return publications
 	  
     end #list_customer_publications
 
