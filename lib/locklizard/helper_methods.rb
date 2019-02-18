@@ -26,10 +26,16 @@ module HelperMethods
     #"?un=" +  URI.escape(@admin) + "&pw=" +  URI.escape(@password)
    "?key=" + URI.escape(@access_key)
   end
+
+  def base_url
+    URI.escape(@base_url)
+  end
   
   # call final target url after having build the whole final url link from method:
   def call_target_url(target)
   
+    target = base_url + target
+
     begin
       #RestClient.get(target_url)
       HTTP.get(@locklizard_base_url + target)

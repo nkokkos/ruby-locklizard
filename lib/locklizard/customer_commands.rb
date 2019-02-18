@@ -47,7 +47,11 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 
+<<<<<<< HEAD
       puts "#{BASE_URL}#{admin_url}#{suburl}"
+=======
+
+>>>>>>> 8379f35b1bb98717ae27968007b07602712ed27b
       call_target_url(admin_url + suburl) # call private method
 
     end #list_customer
@@ -67,7 +71,11 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&email=" + URI.escape(email)
       end
 
+<<<<<<< HEAD
       # maybe use interpolation in future "#{BASE_URL}#{admin_url}#{suburl}"
+=======
+      # "#{admin_url}#{suburl}"
+>>>>>>> 8379f35b1bb98717ae27968007b07602712ed27b
       call_target_url(admin_url + suburl) # call private method
 
     end #list_customer_full
@@ -141,7 +149,7 @@ module CustomerCommands
       #call reset twice to reset ssourl for safe reasons
       suburl_reset = "&action=get_customer_webviewer_ssourl&custid=" + custid.to_s + "&reset=1"
 
-      call_target_url(BASE_URL + admin_url + suburl_reset)# call private method
+      call_target_url(admin_url + suburl_reset)# call private method
       
       ## add here checks for return values / future work
 
@@ -164,8 +172,11 @@ module CustomerCommands
       suburl << "&custid=" + custid.to_s + "&webmslogins=#{wewebmslimit}"
 
       call_target_url(admin_url + suburl)# call private method
+<<<<<<< HEAD
 
     end
+=======
+>>>>>>> 8379f35b1bb98717ae27968007b07602712ed27b
 
     def list_customer_publications(response)
       response.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",") # returns an array of locklizard ids 
