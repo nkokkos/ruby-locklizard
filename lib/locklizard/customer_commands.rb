@@ -169,7 +169,7 @@ module CustomerCommands
 
 
     def list_customer_publications(response)
-      response.split("\n")[1].split(" ")[-2].gsub(/"/, '')
+      response.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",") # returns an array of locklizard ids 
     end
 
 end
