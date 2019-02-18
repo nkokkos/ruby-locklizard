@@ -28,17 +28,17 @@ module HelperMethods
   end
 
   def base_url
-    URI.escape(@base_url)
+    URI.escape(@locklizard_base_url)
   end
   
   # call final target url after having build the whole final url link from method:
   def call_target_url(target)
   
-    target = base_url + target
+    final_target = base_url + admin_url + target
 
     begin
       #RestClient.get(target_url)
-      HTTP.get(@locklizard_base_url + target)
+      HTTP.get(final_target)
     #rescue RestClient::ExceptionWithResponse => err
     rescue Exception => e 
       e.message
