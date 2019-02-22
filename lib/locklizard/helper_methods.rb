@@ -35,7 +35,11 @@ module HelperMethods
   def call_target_url(target)
   
     final_target = base_url + admin_url + target
-
+    
+	#puts "Calling call_target_url "
+	#puts final_target
+	#puts "------------------------"
+	
     begin
       #RestClient.get(target_url)
       HTTP.get(final_target)

@@ -120,7 +120,7 @@ module CustomerCommands
 
     end
 
-    # returns the file license as a data stream.
+    # Returns the file license as a data stream.
     def get_customer_license(custid = nil)
 
       raise ArgumentError.new("Customer id should not be nil/blank") if custid.nil?
@@ -183,12 +183,12 @@ module CustomerCommands
       http_result = call_target_url(suburl) # call private method
 	  
       if success?(http_result)
-        publications = http_result.to_str.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",")
+        publications = http_result.to_s.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",") # return an array
       else
        raise ArgumentError.new('Parsing Error in list_customer_publications') 
       end
 	  
-      return publications
+      return publications.uniq if publications.is_a? Array
 	  
     end #list_customer_publications
 
