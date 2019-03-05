@@ -168,7 +168,7 @@ module CustomerCommands
 	# Accepts a response object and returns an array of customer's locklizard ids
     def list_customer_publications(custid = nil, email = nil)
 	
-      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil? &&  email.nil?
+      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil? && email.nil?
       
       suburl = "&action=list_customer" 
       
@@ -183,7 +183,7 @@ module CustomerCommands
       http_result = call_target_url(suburl) # call private method
 	  
       if success?(http_result)
-        publications = http_result.to_s.split("\n")[1].split(" ")[-2].gsub(/"/, '').split(",") # return an array
+        publications = http_result.to_s.split("\n")[1].split(" ")[-2].gsub('"', '').split(",") # return an array
       else
        raise ArgumentError.new('Parsing Error in list_customer_publications') 
       end
