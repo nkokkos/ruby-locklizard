@@ -37,9 +37,7 @@ module HelperMethods
     final_target = base_url + admin_url + target
 
     begin
-      #RestClient.get(target_url)
       HTTP.get(final_target)
-    #rescue RestClient::ExceptionWithResponse => err
     rescue Exception => e 
       e.message
     end
