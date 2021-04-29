@@ -17,7 +17,7 @@ module CustomerCommands
     end
 
     # add_customer, enable by default webviewer access and multi session logins and license number = 10
-    def add_customer(name, email, webviewer = 1, webmslogins = 1, licenses = 10)
+    def add_customer(name, email, webviewer = 1, webmslogins = 1, licenses = 10, company = 'MyCompany')
       
       suburl = "&action=add_customer" + "&" + 
         "name="  + URI.escape(email)  + "&" + 
@@ -26,7 +26,9 @@ module CustomerCommands
         "end_type=unlimited" + "&" +
         "noregemail=1"       + "&" +
         "licenses=#{licenses}" + "&" + 
-        "webviewer=#{webviewer}" + "&" + "webmslogins=#{webmslogins}"
+        "webviewer=#{webviewer}" + "&" + 
+	"webmslogins=#{webmslogins}" + '&' +
+	"company=#{company}"
 
       call_target_url(suburl) #call private method
 
