@@ -33,19 +33,12 @@ module HelperMethods
   
   # call final target url after having build the whole final url link from method:
   def call_target_url(target)
-  
     final_target = base_url + admin_url + target
-    
-	#puts "Calling call_target_url "
-	#puts final_target
-	#puts "------------------------"
-	
     begin
       HTTP.get(final_target)
     rescue Exception => e 
       e.message
     end
-    
   end
 
 end
