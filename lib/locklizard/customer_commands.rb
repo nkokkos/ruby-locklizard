@@ -8,8 +8,8 @@ module CustomerCommands
       suburl = "&action=set_customer_webviewer_access" + "&" + 
         "custid="    + custid.to_s    + "&" + 
         "webviewer=" + webviewer.to_s + "&" +
-        "username="  + CGI.escape(username)  + "&" +
-        "password="  + CGI.escape(password)  + "&" +
+        "username="  + username.tos_  + "&" +
+        "password="  + password.to_s  + "&" +
         "noregemail=1" # noregemail means don't send the webviewer registration email
       
       call_target_url(suburl) #call private method
@@ -20,8 +20,8 @@ module CustomerCommands
     def add_customer(name, email, webviewer = 1, webmslogins = 1, licenses = 10, company = 'MyCompany')
       
       suburl = "&action=add_customer" + "&" + 
-        "name="  + CGI.escape(email)  + "&" + 
-        "email=" + CGI.escape(email)  + "&" +
+        "name="  + email + "&" + 
+        "email=" + email  + "&" +
         "start_date=" + Time.now.utc.strftime("%m-%d-%Y") + "&" +
         "end_type=unlimited" + "&" +
         "noregemail=1"       + "&" +
@@ -44,9 +44,9 @@ module CustomerCommands
       if !custid.nil? && email.nil?
         suburl << "&custid=" + custid.to_s
       elsif custid.nil? && !email.nil? 
-        suburl << "&email=" + CGI.escape(email)
+        suburl << "&email=" + email
       elsif !custid.nil? && !email.nil?
-        suburl << "&custid=" + custid.to_s + "&email=" + CGI.escape(email)
+        suburl << "&custid=" + custid.to_s + "&email=" + email
       end
 	  
       call_target_url(suburl) # call private method
@@ -63,9 +63,9 @@ module CustomerCommands
       if !custid.nil? && email.nil?
         suburl << "&custid=" + custid.to_s
       elsif custid.nil? && !email.nil? 
-        suburl << "&email=" + CGI.escape(email)
+        suburl << "&email=" + email
       elsif !custid.nil? && !email.nil?
-        suburl << "&custid=" + custid.to_s + "&email=" + CGI.escape(email)
+        suburl << "&custid=" + custid.to_s + "&email=" + email
       end
 	  
       call_target_url(suburl) # call private method
@@ -177,9 +177,9 @@ module CustomerCommands
       if !custid.nil? && email.nil?
         suburl << "&custid=" + custid.to_s
       elsif custid.nil? && !email.nil? 
-        suburl << "&email=" + CGI.escape(email)
+        suburl << "&email=" + email)
       elsif !custid.nil? && !email.nil?
-        suburl << "&custid=" + custid.to_s + "&email=" + CGI.escape(email)
+        suburl << "&custid=" + custid.to_s + "&email=" + email
       end
 	  
       http_result = call_target_url(suburl) # call private method

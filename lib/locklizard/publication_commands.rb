@@ -93,11 +93,11 @@ module PublicationCommands
     if name.nil? && description.nil?
       raise ArgumentError.new('Parameters are nil. Aborting...')
     elsif !name.nil? && description.nil?
-      suburl << "&name=" + CGI.escape(name)
+      suburl << "&name=" + name
     elsif name.nil? && !description.nil? 
       raise ArgumentError.new('Name is nil. Aborting...')
     elsif !name.nil? && !description.nil?
-      suburl << "&name=" + CGI.escape(name)  + "&description=" + CGI.escape(description)
+      suburl << "&name=" + name  + "&description=" + description
     end
 
     call_target_url(suburl)
