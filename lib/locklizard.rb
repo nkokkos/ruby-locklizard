@@ -1,6 +1,5 @@
 require 'http'
 require 'time'
-require 'cgi'
 
 require 'locklizard/endpoints'
 require 'locklizard/helper_methods'

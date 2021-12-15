@@ -24,16 +24,16 @@ module HelperMethods
 
   def admin_url
     #"?un=" +  URI.escape(@admin) + "&pw=" +  CGI.escape(@password)
-   "?key=" + CGI.escape(@access_key)
+   "?key=#{@access_key}"
   end
 
   def base_url
-    CGI.escape(@locklizard_base_url)
+    @locklizard_base_url
   end
   
   # call final target url after having build the whole final url link from method:
   def call_target_url(target)
-    final_target = base_url + admin_url + target
+    final_target = "#{base_url}#{admin_url}#{target}"
     begin
       HTTP.get(final_target)
     rescue Exception => e 
