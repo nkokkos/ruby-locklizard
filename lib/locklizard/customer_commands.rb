@@ -8,7 +8,7 @@ module CustomerCommands
       suburl = "&action=set_customer_webviewer_access" + "&" + 
         "custid="    + custid.to_s    + "&" + 
         "webviewer=" + webviewer.to_s + "&" +
-        "username="  + username.tos_  + "&" +
+        "username="  + username.to_s  + "&" +
         "password="  + password.to_s  + "&" +
         "noregemail=1" # noregemail means don't send the webviewer registration email
       
