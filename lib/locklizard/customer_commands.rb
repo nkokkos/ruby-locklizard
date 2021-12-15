@@ -177,7 +177,7 @@ module CustomerCommands
       if !custid.nil? && email.nil?
         suburl << "&custid=" + custid.to_s
       elsif custid.nil? && !email.nil? 
-        suburl << "&email=" + email)
+        suburl << "&email=" + email
       elsif !custid.nil? && !email.nil?
         suburl << "&custid=" + custid.to_s + "&email=" + email
       end
