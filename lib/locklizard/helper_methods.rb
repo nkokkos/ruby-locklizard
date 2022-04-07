@@ -12,7 +12,7 @@ module HelperMethods
   
   def failed?(response = nil)
     raise ArgumentError if response.nil?
-    resp.to_str.split("\n").first.gsub(/\n/,'') == FAILED
+    response.to_str.split("\n").first.gsub(/\n/,'') == FAILED
   end
 
   # clean respone

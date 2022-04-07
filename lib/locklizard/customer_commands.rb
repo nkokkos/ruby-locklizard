@@ -17,7 +17,7 @@ module CustomerCommands
     end
 
     # add_customer, enable by default webviewer access and multi session logins and license number = 10
-    def add_customer(name, email, webviewer = 1, webmslogins = 1, licenses = 10, company = 'MyCompany')
+    def add_customer(name, email, webviewer = 1, webmslogins = 1, licenses = 10, company = 'HOU')
       
       suburl = "&action=add_customer" + "&" + 
         "name="  + email + "&" + 
