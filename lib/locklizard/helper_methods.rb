@@ -35,8 +35,9 @@ module HelperMethods
   def call_target_url(target)
     final_target = "#{base_url}#{admin_url}#{target}"
     begin
-      HTTP.get(final_target)
-    rescue Exception => e 
+      http = HTTP.timeout(connect: 5, read: 5)
+      http.get(final_target)
+    rescue HTTP::Error => e 
       e.message
     end
   end
