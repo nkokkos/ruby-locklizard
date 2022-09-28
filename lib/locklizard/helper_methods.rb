@@ -34,11 +34,10 @@ module HelperMethods
   # call final target url after having build the whole final url link from method:
   def call_target_url(target)
     final_target = "#{base_url}#{admin_url}#{target}"
-    begin
-      http = HTTP.timeout(connect: 5, read: 5)
-      http.get(final_target)
+    http = HTTP.timeout(connect: 5, read: 5)
+    http.get(final_target)
     rescue HTTP::Error => e 
-      e.message
+      "Exception Occurred: #{e}. Message: #{e.message}. Backtrace:  \n #{e.backtrace.join("\n")}"
     end
   end
 
