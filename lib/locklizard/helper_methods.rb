@@ -43,9 +43,8 @@ module HelperMethods
   #   end
   # end
   def call_target_url(target)
-    final_target = "#{base_url}#{admin_url}#{target}"
     http = HTTP.timeout(connect: 5, read: 5)
-    http.get(final_target)
+    http.get "#{base_url}#{admin_url}#{target}"
   end
 
 end
