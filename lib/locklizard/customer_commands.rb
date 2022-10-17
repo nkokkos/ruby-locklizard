@@ -83,8 +83,18 @@ module CustomerCommands
       call_target_url(suburl) # call private method
 
     end #resend_customer_web_viewer_login
-
-
+    
+    # Resend license file / Web Viewer login email
+    # custid – id of the customer (maximum of 50
+    # pdconly – set this to 1 to only send the Viewer license file email
+    # This action invokes locklizard's feature to send the license through email
+    def resend_customer_license_file(cust_id = nil, pdconly = 1)
+     raise ArgumentError.new('Customer Id and email are nil.') if custid.nil?
+     suburl =  "&action=resend_license"
+     suburl << "&custid=" + custid.to_s + "&pdconly=" + pdconly.to_s
+     call_target_url(suburl) # call private method
+    end
+    
     # set_customer_license_count
     def set_customer_license_count(custid = nil, licenses = nil)
 
@@ -165,9 +175,9 @@ module CustomerCommands
 
       call_target_url(suburl)# call private method
     
-	end	
+    end	
 
-	# Accepts a response object and returns an array of customer's locklizard ids
+    # Accepts a response object and returns an array of customer's locklizard ids
     def list_customer_publications(custid = nil, email = nil)
 	
       raise ArgumentError.new('Customer Id and email are nil.') if custid.nil? && email.nil?
