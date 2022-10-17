@@ -88,7 +88,7 @@ module CustomerCommands
     # custid – id of the customer (maximum of 50
     # pdconly – set this to 1 to only send the Viewer license file email
     # This action invokes locklizard's feature to send the license through email
-    def resend_customer_license_file(cust_id = nil, pdconly = 1)
+    def resend_customer_license_file(custid = nil, pdconly = 1)
      raise ArgumentError.new('Customer Id and email are nil.') if custid.nil?
      suburl =  "&action=resend_license"
      suburl << "&custid=" + custid.to_s + "&pdconly=" + pdconly.to_s
