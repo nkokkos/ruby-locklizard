@@ -104,4 +104,14 @@ module PublicationCommands
    
   end
 
+  def list_publication_documents(pub_id)
+    if pub_id.nil? then
+      raise ArgumentError.new('Parameters are nil. Aborting...')
+    end
+    suburl = "&action=list_publication_documents"
+    suburl << "&pubid=" + pub_id
+
+    call_target_url(suburl)  
+  end
+
 end 
