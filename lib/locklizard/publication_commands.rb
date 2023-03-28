@@ -29,18 +29,17 @@ module PublicationCommands
   # Expects a customer locklicard id and an array of ids. Array can have 1 member too.
   def revoke_publication_access(custid = nil)
     raise ArgumentError.new('Custid Parameter is nil. Aborting...') if custid.nil?
-	# raise ArgumentError.new('Publication parameter is not an Array. Aborting') if !publication.is_a? Array
+    # raise ArgumentError.new('Publication parameter is not an Array. Aborting') if !publication.is_a? Array
   
     # first revoke access to all the publication the user has:
-	publication_ids = list_customer_publications(custid).join(",") # this returns a comma separated string
-   	
-	unless publication_ids.empty? # if publication_ids string "is not" empty 
+    publication_ids = list_customer_publications(custid).join(",") # this returns a comma separated string
+    unless publication_ids.empty? # if publication_ids string "is not" empty 
       suburl = "&action=revoke_publication_access"
-	  suburl << "&custid=" + custid.to_s + "&" + "publication=" + publication_ids
-	  call_target_url(suburl)
+      suburl << "&custid=" + custid.to_s + "&" + "publication=" + publication_ids
+      call_target_url(suburl)
     else # if publication string is empty
-	  return "publication_ids_null".freeze
-	end
+      return "publication_ids_null".freeze
+    end
 	
   end
   
@@ -56,34 +55,30 @@ module PublicationCommands
 	if (http_result.is_a? HTTP::Response)
 	  if success?(http_result.to_s)
 	    unless publications_array.empty? # if publications_array is not empty, grant publication access
-          suburl = "&action=grant_publication_access"
+              suburl = "&action=grant_publication_access"
 	      suburl << "&custid=" + custid.to_s + "&" + "publication=" + publications_array.join(',')
 	      call_target_url(suburl)
-        end
+            end
 	  else 
 	    http_result.to_s #just return the http result
 	  end
 	elsif http_result == "publication_ids_null"
 	  if !publications_array.empty? # if publications_array is not empty, grant publication access
-        suburl = "&action=grant_publication_access"
+            suburl = "&action=grant_publication_access"
 	    suburl << "&custid=" + custid.to_s + "&" + "publication=" + publications_array.join(',')
 	    call_target_url(suburl)
-      end
+          end
 	else
 	  raise ArgumentError.new("ArgumentError in grant_publication_access")
 	  #return "HTTP Result:#{http_result.to_s}"
-	end
-	
+        end
   end
   
   # list_publications
   def list_publications
-
     suburl = "&action=list_publications" 
-  
     call_target_url(suburl) 
-  
-  end#list_publications
+  end
   
   # add_publication
   def add_publication(name, description)
@@ -112,6 +107,22 @@ module PublicationCommands
     suburl << "&pubid=" + pub_id
 
     call_target_url(suburl)  
+  end
+
+  # List all documents:
+  # According to api, this api command returns these columns:
+  # 1. document id
+  # 2. document title
+  # 3. date and time when the document was published
+  # 4. date and time when the document expires or never if it does not expire
+  # 5. how the document was protected
+  #   - for all customers = all
+  #   - individually = none
+  #   - to a publication = publication id
+  # 6. whether the document was published for use with the Web (yes=true,no=fals
+  def list_documents 
+    suburl = "&action=list_documents"
+    call_target_url(suburl)
   end
 
 end 
