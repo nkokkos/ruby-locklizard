@@ -205,4 +205,11 @@ module CustomerCommands
     end #list_customer_publications
 
 
+    def update_customer_prints(custid = nil, docid = nil, prints = 1)
+      raise ArgumentError.new('Customer Id and docid are nil.') if custid.nil? && docid.nil?
+      suburl = "&action=update_prints"
+      suburl << "&custid=#{custid}&docid=#{docid}&prints=#{prints}"
+      call_target_url(suburl) # call private method 
+    end
+
 end
