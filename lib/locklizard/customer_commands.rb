@@ -157,8 +157,8 @@ module CustomerCommands
       if redoc.nil?
         suburl =  "&action=get_customer_webviewer_ssourl"
         suburl << "&custid=" + custid.to_s
-        call_target_url(suburl)# call private method
-      else 
+        call_target_url(suburl) # call private method
+      elsif is_a_number?(redoc) # check if redoc is a number. Always locklizard doc ids are digits. 
         suburl =  "&action=get_customer_webviewer_ssourl"
         suburl << "&custid=" + custid.to_s + "&redoc=#{redoc}"
         call_target_url(suburl)# call private method

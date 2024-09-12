@@ -19,6 +19,10 @@ module HelperMethods
   def clean_response(response)
    raise "Not Implemented"
   end
+
+  def is_a_number?(str)
+    !!(Float(str) rescue false)
+  end
   
   private
 
