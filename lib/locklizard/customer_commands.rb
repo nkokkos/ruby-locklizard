@@ -144,7 +144,7 @@ module CustomerCommands
 
     end
 
-    def get_customer_webviewer_ssourl(custid = nil)
+    def get_customer_webviewer_ssourl(custid = nil, redoc = nil)
 
       raise ArgumentError.new("Customer id should not be nil/blank") if custid.nil?
       
@@ -154,12 +154,16 @@ module CustomerCommands
       call_target_url(admin_url + suburl_reset)# call private method
       
       ## add here checks for return values / future work
+      if redoc.nil?
+        suburl =  "&action=get_customer_webviewer_ssourl"
+        suburl << "&custid=" + custid.to_s
+        call_target_url(suburl)# call private method
+      else 
+        suburl =  "&action=get_customer_webviewer_ssourl"
+        suburl << "&custid=" + custid.to_s + "&redoc=#{redoc}"
+        call_target_url(suburl)# call private method
+      end
 
-      suburl = "&action=get_customer_webviewer_ssourl"
-      suburl << "&custid=" + custid.to_s
-
-      call_target_url(suburl)# call private method
-      
     end
 
     # Sets customer Web Viewer multiple logins - This command is used to 
