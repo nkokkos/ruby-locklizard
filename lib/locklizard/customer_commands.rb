@@ -128,7 +128,7 @@ module CustomerCommands
         suburl << "&custid=" + custid.to_s + "&" + "licenses=" + licenses.to_s
       end
       
-      call_target_url(admin_url + suburl) # call private method
+      call_target_url(suburl) # call private method
 
     end
 
@@ -144,31 +144,16 @@ module CustomerCommands
 
     end
 
-    def get_customer_webviewer_ssourl(custid = nil, redoc = nil)
+    def get_customer_webviewer_ssourl(custid = nil)
 
       raise ArgumentError.new("Customer id should not be nil/blank") if custid.nil?
       
       #call reset twice to reset ssourl for safe reasons
       suburl_reset = "&action=get_customer_webviewer_ssourl&custid=" + custid.to_s + "&reset=1"
-
       call_target_url(admin_url + suburl_reset)# call private method
-     
-      puts custid.inspect
-      puts redoc.inspect
  
-      ## add here checks for return values / future work
-      if redoc.nil?
-        puts redoc.inspect
-        suburl =  "&action=get_customer_webviewer_ssourl"
-        suburl << "&custid=" + custid.to_s
-        call_target_url(suburl) # call private method
-      elsif is_a_number?(redoc) # check if redoc is a number. Always locklizard doc ids are digits. 
-        suburl =  "&action=get_customer_webviewer_ssourl"
-        suburl << "&custid=" + custid.to_s + "&redoc=#{redoc}"
-        puts redoc.inspect
-        puts suburl.inspect
-        call_target_url(suburl)# call private method
-      end
+      suburl = "&action=get_customer_webviewer_ssourl&custid=#{custid.to_s}"
+      call_target_url(suburl) # call private method
 
     end
 
