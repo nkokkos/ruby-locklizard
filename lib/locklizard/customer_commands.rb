@@ -207,4 +207,11 @@ module CustomerCommands
       call_target_url(suburl) # call private method 
     end
 
+    def suspend_customer(custid)
+      raise ArgumentError.new('Customer Id is nil.') if custid.nil?
+      suburl = "&action=suspend_customer"
+      suburl << "&custid=#{custid}"
+      call_target_url(suburl) # call private method
+    end
+
 end
